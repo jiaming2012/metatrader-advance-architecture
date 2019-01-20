@@ -98,6 +98,11 @@ oscillating market simulation
 
       at Context.<anonymous> (test/functional.js:27:12)
 ```
-The second test fails! Our algo is not closing the original trade when the price recrosses the resistance line. Lets fix that:
-
- 
+The second test fails! Our algo is not closing the original trade when the price recrosses the resistance line! This brings up two important points:
+1. We need more precise events:
+  1. 'CUSTOM_CHARTEVENT_RESISTANCE_LINE_CROSSED_FROM_BELOW'
+  2. 'CUSTOM_CHARTEVENT_RESISTANCE_LINE_CROSSED_FROM_ABOVE'
+  3. 'CUSTOM_CHARTEVENT_SUPPORT_LINE_CROSSED_FROM_BELOW'
+  4. 'CUSTOM_CHARTEVENT_SUPPORT_LINE_CROSSED_FROM_ABOVE'
+  
+2. Naively, because of the underlying assumption that a price crosses above means price is actually above the line is false. Have we tested this assumption in MT5, it could have been detected early. We cannot blindly trust our MT5 events.
